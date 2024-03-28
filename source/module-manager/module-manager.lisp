@@ -219,14 +219,9 @@
 
 ;; Allow use of CMUCL package nicknames with SBCL:
 #+sbcl
-(eval-when (:compile-toplevel :load-toplevel :execute)
-  (let ((fn (or
-              ;; Pre SBCL-1.0.34:
-              (find-symbol "ENTER-NEW-NICKNAMES" :sb-impl)
-              ;; Post SBCL-1.0.34:
-              (find-symbol "%ENTER-NEW-NICKNAMES" :sb-impl))))
-    (funcall fn (find-package "SB-PCL") '("PCL"))
-    (funcall fn (find-package "SB-UNIX") '("UNIX"))))
+(sb-ext:add-package-local-nickname "PCL" "SB-PCL")
+#+sbcl
+(sb-ext:add-package-local-nickname "UNIX" "SB-UNIX")
 
 ;;; ===========================================================================
 ;;;  Export user-level Module Manager names.  (Some of these names could
