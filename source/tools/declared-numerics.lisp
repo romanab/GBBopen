@@ -1112,9 +1112,12 @@
 
 ;; From SBCL's print.lisp:
 #+sbcl
-(sb-ext::without-package-locks
- (defun sb-impl::output-float-infinity (x stream)
-   (print-object x stream)))
+(sb-ext:unlock-package 'sb-impl)
+#+sbcl
+(defun sb-impl::output-float-infinity (x stream)
+  (print-object x stream))
+#+sbcl
+(sb-ext:unlock-package 'sb-impl)
 
 #+scl
 (defun lisp::output-float-infinity (x stream)
