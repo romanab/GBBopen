@@ -89,15 +89,10 @@
     (:directory :gbbopen-tools)
     (:files "gbbopen-tools-user"))
 
-  (define-module :portable-threads
-    "The Portable Threads module provides a uniform interface to commonly used thread (multiprocessing) entities."
-    (:requires :module-manager-user)       ; not really required, but we want
-                                           ; :module-manager-user
-                                           ; compiled/loaded if we are using
-                                           ; the Module Manager Facility
-    (:directory :gbbopen-tools)
-    (:files ("portable-threads" :forces-recompile)
-            "scheduled-periodic-functions"))
+(define-module :portable-threads
+  "The Portable Threads module uses the Quicklisp portable-threads library."
+  (:requires :module-manager-user)
+  (:quicklisp-system "portable-threads")) ; Add a custom keyword to mark it as external
   
   (define-module :polling-functions
     "The Polling Functions module provides 'event-loop' processing entities on Common Lisp implementations without thread support."
